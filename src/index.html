@@ -7,23 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <style>
-        [ng-cloak] {
-            display: none !important;
-        }
-        a, th {
-            cursor: pointer;
-	        -webkit-touch-callout: none; /* iOS Safari */
-	        -webkit-user-select: none; /* Chrome/Safari/Opera */
-            -khtml-user-select: none; /* Konqueror */
-	        -moz-user-select: none; /* Firefox */
-	        -ms-user-select: none; /* Internet Explorer/Edge */
-	        user-select: none; /* Non-prefixed version, currently not supported by any browser */
-        }
-        nav {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="css/app.css">
 </head>
 <body ng-app="pagingWidget">
 
@@ -32,42 +16,17 @@
 			<h1 ng-click="console.log('click');">ngpaginate</h1>
 
 			<!-- pager -->
-            <nav aria-label="Page navigation">
-	            <ul class="pagination pagination-lg">
-		            <li class="page-item" ng-class="{disabled:pager.currentPage === 1}">
-		                <a class="page-link" ng-click="setPage(1)">First</a>
-		            </li>
-	                <li class="page-item" ng-class="{disabled:pager.currentPage === 1}">
-	                <a class="page-link" ng-click="setPage(pager.currentPage - 1)" aria-label="Previous">
-	                    <span aria-hidden="true">Previous</span>
-	                    <span class="sr-only">Previous</span>
-	                </a>
-	                </li>
-
-	                <li class="page-item" ng-class="{active:pager.currentPage === page}" ng-repeat="page in pager.pages">
-	                    <a class="page-link" ng-click="setPage(page)">{{ page }}</a></li>
-
-	                <li class="page-item" ng-class="{disabled:pager.currentPage === pager.totalPages}">
-	                    <a class="page-link" ng-click="setPage(pager.currentPage + 1)" aria-label="Next">
-	                        <span aria-hidden="true">Next</span>
-	                        <span class="sr-only">Next</span>
-	                    </a>
-	                </li>
-		            <li class="page-item" ng-class="{disabled:pager.currentPage === vm.pager.totalPages}">
-		                <a class="page-link" ng-click="setPage(pager.totalPages)">Last</a>
-		            </li>
-	            </ul>
-            </nav>
+			<div paging-directive></div>
 
             <!-- paging table -->
 			<table class="table table-striped">
 				<thead>
-					<th ng-click="doSort('name')">Name <i class="fa fa-fw fa-sort"></i></th>
-					<th ng-click="doSort('debit')">Debit <i class="fa fa-fw fa-sort"></i></th>
-					<th ng-click="doSort('credit')">Credit <i class="fa fa-fw fa-sort"></i></th>
-					<th ng-click="doSort('city');" class="hidden-sm-down">City <i class="fa fa-fw fa-sort"></i></th>
-					<th ng-click="doSort('state')" class="hidden-xs">State <i class="fa fa-fw fa-sort"></i></th>
-					<th ng-click="doSort('joined')">Date <i class="fa fa-fw fa-sort"></i></th>
+					<th ng-click="doSort('name')">Name <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
+					<th ng-click="doSort('debit')">Debit <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
+					<th ng-click="doSort('credit')">Credit <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
+					<th ng-click="doSort('city');" class="hidden-sm-down">City <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
+					<th ng-click="doSort('state')" class="hidden-sm-down">State <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
+					<th ng-click="doSort('joined')">Date <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
 				</thead>
 				<tbody>
 					<tr ng-repeat="cust in items | orderBy: sortBy:sortDirection">
@@ -75,48 +34,23 @@
 						<td>-{{ cust.debit | currency }}</td>
 						<td>{{ cust.credit | currency }}</td>
 						<td class="hidden-sm-down">{{ cust.city }}</td>
-						<td class="hidden-xs">{{ cust.state }}</td>
+						<td class="hidden-sm-down">{{ cust.state }}</td>
 						<td>{{ cust.joined }}</td>
 					</tr>
 				</tbody>
 			</table>
 
 			<!-- pager -->
-            <nav aria-label="Page navigation">
-	            <ul class="pagination pagination-lg">
-		            <li class="page-item" ng-class="{disabled:pager.currentPage === 1}">
-		                <a class="page-link" ng-click="setPage(1)">First</a>
-		            </li>
-	                <li class="page-item" ng-class="{disabled:pager.currentPage === 1}">
-	                <a class="page-link" ng-click="setPage(pager.currentPage - 1)" aria-label="Previous">
-	                    <span aria-hidden="true">Previous</span>
-	                    <span class="sr-only">Previous</span>
-	                </a>
-	                </li>
-
-	                <li class="page-item" ng-class="{active:pager.currentPage === page}" ng-repeat="page in pager.pages">
-	                    <a class="page-link" ng-click="setPage(page)">{{ page }}</a></li>
-
-	                <li class="page-item" ng-class="{disabled:pager.currentPage === pager.totalPages}">
-	                    <a class="page-link" ng-click="setPage(pager.currentPage + 1)" aria-label="Next">
-	                        <span aria-hidden="true">Next</span>
-	                        <span class="sr-only">Next</span>
-	                    </a>
-	                </li>
-		            <li class="page-item" ng-class="{disabled:pager.currentPage === vm.pager.totalPages}">
-		                <a class="page-link" ng-click="setPage(pager.totalPages)">Last</a>
-		            </li>
-	            </ul>
-            </nav>
+            <div paging-directive></div>
 
 		</div>
 	</div>
-
 
     <script src="js/underscore-min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
     <script src="app.js"></script>
     <script src="js/pagingController.js"></script>
     <script src="js/pagingService.js"></script>
+    <script src="js/pagingDirective.js"></script>
 </body>
 </html>

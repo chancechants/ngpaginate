@@ -2,7 +2,7 @@
 	function pagingCtrl($scope, pagingService) {
 		// init pager
         $scope.pager = {};
-        // function aliases
+        // function scopting
         $scope.setPage = setPage;
         $scope.doSort = doSort;
         // default sort and index
