@@ -82,7 +82,9 @@ function getIndex() {
 }
 
 function randomTotal() {
-    return Math.floor(Math.random() * 500);
+	var randomDollar = Math.floor(Math.random() * 500);
+	var randomChange = Math.random() * 99;
+    return randomDollar + randomChange;
 }
 
 function randomCity() {
