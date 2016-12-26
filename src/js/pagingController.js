@@ -21,7 +21,7 @@
 	            //handle error
 	        });
         }
-        // returns slice of array that for provided page number
+        // returns slice of array for provided page number
         function setPage(page) {
             if (page < 1 || page > $scope.pager.totalPages) {
                 return;
