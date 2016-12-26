@@ -1,0 +1,27 @@
+{
+  "name": "ngpaginate",
+  "version": "1.0.0",
+  "description": "AngularJS Pagination",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chancechants/ngpaginate.git"
+  },
+  "keywords": [
+    "angularjs",
+    "pagination"
+  ],
+  "author": "Aaron Rosario",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chancechants/ngpaginate/issues"
+  },
+  "homepage": "https://github.com/chancechants/ngpaginate#readme"
+}
