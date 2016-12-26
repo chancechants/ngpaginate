@@ -4,8 +4,11 @@ AngularJS pagination
 Run project instructions:
 
 git clone https://github.com/chancechants/ngpaginate.git
+
 cd ngpaginate
+
 npm install
+
 node server.js
 
 Utilizes: AngularJS 1.6, Bootstrap 4, Express 4, Underscores
