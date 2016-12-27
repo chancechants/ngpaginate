@@ -20,7 +20,7 @@
 					<button class="btn btn-sm" ng-class="{'btn-warning' : working=='maybe', 'btn-success' : working=='yes', 'btn-danger' : working=='no'}" ng-click="reseed();">Reseed</button>
 					<br />
 					<span ng-if="working == 'no'" style="color:red">{{ errorMsg.error }}</span>
-					<span ng-if="working == 'yes' && loadTime" style="color:green">Loaded {{ seed }} records in {{ loadTime }}ms!</span>
+					<span ng-if="working == 'yes' && loadTime" style="color:green">Loaded {{ ::seed }} records in {{ loadTime }}ms!</span>
 				</p>
 			</div>
 			
