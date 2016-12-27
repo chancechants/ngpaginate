@@ -14,28 +14,37 @@
 	<div class="container" ng-controller="pagingCtrl as ctrl" ng-cloak>
 		<div class="row">
 			<h1 ng-click="console.log('click');">ngpaginate</h1>
-
+			<div class="row">
+				<p style="float:right">re-generate random records: 
+					<input type="text" value="{{ seed }}" ng-model="seed" style="width:60px"> 
+					<button class="btn btn-sm" ng-class="{'btn-warning' : working=='maybe', 'btn-success' : working=='yes', 'btn-danger' : working=='no'}" ng-click="reseed();">Reseed</button>
+					<br />
+					<span ng-if="working == 'no'" style="color:red">{{ errorMsg.error }}</span>
+					<span ng-if="working == 'yes' && loadTime" style="color:green">Loaded {{ seed }} records in {{ loadTime }}ms!</span>
+				</p>
+			</div>
+			
 			<!-- pager -->
 			<div paging-directive></div>
 
             <!-- paging table -->
 			<table class="table table-striped">
 				<thead>
-					<th ng-click="doSort('name')">Name <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
-					<th ng-click="doSort('debit')">Debit <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
-					<th ng-click="doSort('credit')">Credit <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
-					<th ng-click="doSort('city');" class="hidden-sm-down">City <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
-					<th ng-click="doSort('state')" class="hidden-sm-down">State <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
-					<th ng-click="doSort('joined')">Date <i class="fa fa-fw fa-sort hidden-sm-down"></i></th>
+					<th ng-click="doSort('name')">Name <i class="fa fa-fw fa-sort-amount-desc hidden-sm-down" ng-if="sortBy == 'name' && sortDirection == true"></i><i class="fa fa-fw fa-sort-amount-asc hidden-sm-down" ng-if="sortBy == 'name' && sortDirection == false"></i><i class="fa fa-fw fa-sort hidden-sm-down" ng-if="sortBy !== 'name'"></i></th>
+					<th ng-click="doSort('debit')">Debit <i class="fa fa-fw fa-sort-amount-asc hidden-sm-down" ng-if="sortBy == 'debit' && sortDirection == true"></i><i class="fa fa-fw fa-sort-amount-desc hidden-sm-down" ng-if="sortBy == 'debit' && sortDirection == false"></i><i class="fa fa-fw fa-sort hidden-sm-down" ng-if="sortBy !== 'debit'"></i></th>
+					<th ng-click="doSort('credit')">Credit <i class="fa fa-fw fa-sort-amount-desc hidden-sm-down" ng-if="sortBy == 'credit' && sortDirection == true"></i><i class="fa fa-fw fa-sort-amount-asc hidden-sm-down" ng-if="sortBy == 'credit' && sortDirection == false"></i><i class="fa fa-fw fa-sort hidden-sm-down" ng-if="sortBy !== 'credit'"></i></th>
+					<th ng-click="doSort('city');" class="hidden-sm-down">City <i class="fa fa-fw fa-sort-amount-desc hidden-sm-down" ng-if="sortBy == 'city' && sortDirection == true"></i><i class="fa fa-fw fa-sort-amount-asc hidden-sm-down" ng-if="sortBy == 'city' && sortDirection == false"></i><i class="fa fa-fw fa-sort hidden-sm-down" ng-if="sortBy !== 'city'"></i></th>
+					<th ng-click="doSort('state')" class="hidden-sm-down">State <i class="fa fa-fw fa-sort-amount-desc hidden-sm-down" ng-if="sortBy == 'state' && sortDirection == true"></i><i class="fa fa-fw fa-sort-amount-asc hidden-sm-down" ng-if="sortBy == 'state' && sortDirection == false"></i><i class="fa fa-fw fa-sort hidden-sm-down" ng-if="sortBy !== 'state'"></i></th>
+					<th ng-click="doSort('joined')">Date <i class="fa fa-fw fa-sort-amount-asc hidden-sm-down" ng-if="sortBy == 'joined' && sortDirection == true"></i><i class="fa fa-fw fa-sort-amount-desc hidden-sm-down" ng-if="sortBy == 'joined' && sortDirection == false"></i><i class="fa fa-fw fa-sort hidden-sm-down" ng-if="sortBy !== 'joined'"></i></th>
 				</thead>
 				<tbody>
 					<tr ng-repeat="cust in items | orderBy: sortBy:sortDirection">
 						<td>{{ cust.name }}</td>
-						<td>-{{ cust.debit | currency }}</td>
-						<td>{{ cust.credit | currency }}</td>
+						<td><span ng-if="cust.debit !== ''">{{ cust.debit | currency }}</span></td>
+						<td><span ng-if="cust.credit !== ''">{{ cust.credit | currency }}</span></td>
 						<td class="hidden-sm-down">{{ cust.city }}</td>
 						<td class="hidden-sm-down">{{ cust.state }}</td>
-						<td>{{ cust.joined }}</td>
+						<td>{{ cust.joined  | date }}</td>
 					</tr>
 				</tbody>
 			</table>

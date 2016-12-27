@@ -9,9 +9,9 @@
 	    return service;
 	 
 	    // service implementation
-	    function GetData() {
+	    function GetData(amt) {
 	    	// grabs sample data in server.js
-	    	return $http.get('http://localhost:8080/getdata');
+	    	return $http.get('http://localhost:8080/getdata/'+amt);
 	    }
 	    // logic for calculating start, end and total page numbers
 	    function GetPager(totalItems, currentPage, pageSize) {

@@ -5,23 +5,27 @@
         // function aliases
         $scope.setPage = setPage;
         $scope.doSort = doSort;
-        // default sort and index
-        $scope.sortDirection = false;
+        $scope.reseed = reseed;
+        // default sort, index and seed
+        $scope.sortDirection = true;
         var firstIndex = 1;
+        $scope.seed = 2000;
+        $scope.working = 'yes';
         // init controller
         init();
         // functions
         function init() {
 	        $scope.sortBy = 'joined';
-	    	pagingService.GetData()
+	    	pagingService.GetData($scope.seed)
 	        .then(function(response) {
-	            $scope.dummyItems = response.data;
+	            $scope.dummyItems = response.data.dummyItems;
+                $scope.loadTime = response.data.duration;
 	            $scope.setPage(1);
 	        }, function(data, status, headers, config) {
 	            //handle error
 	        });
         }
-        // returns slice of array for provided page number
+        // returns slice of array that for provided page number
         function setPage(page) {
             if (page < 1 || page > $scope.pager.totalPages) {
                 return;
@@ -41,6 +45,21 @@
         		$scope.sortDirection = true;
         	}
         }
+        // reseed
+        function reseed() {
+            $scope.working = 'maybe';
+            $scope.sortBy = 'joined';
+            pagingService.GetData($scope.seed)
+            .then(function(response) {
+                $scope.dummyItems = response.data.dummyItems;
+                $scope.setPage(1);
+                $scope.working = 'yes';
+                $scope.loadTime = response.data.duration;
+            }, function(data, status, headers, config) {
+                $scope.working = 'no';
+                $scope.errorMsg = data.data;
+            });
+        }        
 	}
 	// injector for minification protection
 	pagingCtrl.$inject = ['$scope', 'pagingService'];
